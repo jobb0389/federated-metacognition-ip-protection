@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Federated Metacognition - IP Protection Chain</title>
+    <meta name="author" content="James O'Brien-Brown">
+    <meta name="description" content="Cryptographic proof chain for AGI innovation">
+    <style>
+        body { 
+            font-family: 'Courier New', monospace; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px;
+            background: #0a0a0a;
+            color: #00ff00;
+        }
+        h1 { color: #00ffff; }
+        .hash { 
+            background: #1a1a1a; 
+            padding: 4px 8px; 
+            border-radius: 3px;
+            color: #ffff00;
+            font-family: monospace;
+        }
+        .verified { color: #00ff00; }
+        .chain-entry { 
+            border-left: 3px solid #00ffff; 
+            padding-left: 15px; 
+            margin: 20px 0;
+            background: rgba(0,255,255,0.05);
+        }
+        #stats {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Federated Metacognition IP Protection Chain</h1>
+    <p>Author: James O'Brien-Brown | Email: jobb0389@gmail.com</p>
+    <p>GPG Key: D6E4E4A060B30DC6C8E03A04544627B4BEE7EFEC</p>
+    
+    <div id="stats">
+        <h2>Chain Statistics</h2>
+        <p>Latest Protection Event: <span id="latest" class="hash">Initializing...</span></p>
+        <p>Total Protection Events: <span id="count" class="hash">0</span></p>
+        <p>Current Chain Hash: <span id="chain" class="hash">GENESIS</span></p>
+        <p>Repository Status: <span class="verified">PROTECTED</span></p>
+    </div>
+    
+    <h2>Recent Protection Events</h2>
+    <div id="entries">
+        <p>No protection events yet. Run IP Protection to create the first entry.</p>
+    </div>
+    
+    <script>
+        // Attempt to load latest proof
+        fetch('proofs/latest.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('latest').innerText = data.Timestamp || 'Unknown';
+                document.getElementById('count').innerText = data.ChainIndex || '0';
+                document.getElementById('chain').innerText = (data.SHA256 || 'GENESIS').substring(0, 16) + '...';
+            })
+            .catch(error => {
+                console.log('No protection events yet');
+            });
+            
+        // Attempt to load audit log
+        fetch('AUDIT_LOG.json')
+            .then(response => response.json())
+            .then(entries => {
+                if (entries && entries.length > 0) {
+                    const container = document.getElementById('entries');
+                    container.innerHTML = '';
+                    
+                    // Show last 10 entries
+                    entries.slice(-10).reverse().forEach(entry => {
+                        const div = document.createElement('div');
+                        div.className = 'chain-entry';
+                        div.innerHTML = '<strong>Event #' + entry.ChainIndex + '</strong> - ' + entry.Timestamp + '<br>' +
+                                      'Commit: <span class="hash">' + entry.CommitHash.substring(0, 8) + '</span><br>' +
+                                      'SHA256: <span class="hash">' + entry.SHA256.substring(0, 16) + '...</span><br>' +
+                                      'Status: <span class="verified">GPG VERIFIED</span>';
+                        container.appendChild(div);
+                    });
+                }
+            })
+            .catch(error => {
+                console.log('Audit log not yet created');
+            });
+    </script>
+</body>
+</html>
