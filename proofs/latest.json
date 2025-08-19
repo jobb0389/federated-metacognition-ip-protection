@@ -1,0 +1,13 @@
+﻿{
+    "SHA256":  "7C558F4F45962B3DE90972C5100A420B07548126C0F5244271EA9CBF42E549A5",
+    "Timestamp":  "2025-08-19 19:46:44.6631983 UTC",
+    "TreeHash":  [
+                     "6d9ca20de6d8609e7d00d9bf84d714f0ad389b5c",
+                     "-encodedCommand",
+                     "dAByAGUAZQA="
+                 ],
+    "CommitHash":  "81b00d286567c382fb7e90c150631779a8fc08a2",
+    "GPGVerified":  true,
+    "PreviousHash":  "B20B212EF2534A4F9E4D56045BD4A476C81DEE012EE5AD991B148A4BFBAD88EC",
+    "ChainIndex":  10
+}
